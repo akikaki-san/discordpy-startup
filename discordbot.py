@@ -14,7 +14,7 @@ async def on_command_error(ctx, error):
     
 @bot.event
 async def on_ready():
-await bot.change_presence(activity=discord.Game(f"#aa!help | 秋柿さんbot | v.1.0")
+await bot.change_presence(activity=discord.Game(f"a!help")
 
 @bot.command()
 async def ping(ctx):
