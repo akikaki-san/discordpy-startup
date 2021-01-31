@@ -35,6 +35,6 @@ async def nube(ctx):
     
 @bot.command()
 async def aki(ctx):
-    await ctx.send('秋柿様','秋柿ごみ','秋柿3')
+    await ctx.send('秋柿様')
     
 bot.run(token)
