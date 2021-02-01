@@ -11,7 +11,10 @@ async def on_command_error(ctx, error):
     orig_error = getattr(error, "original", error)
     error_msg = ''.join(traceback.TracebackException.from_exception(orig_error).format())
     await ctx.send(error_msg)
-   
+
+@bot.event
+bot = commands.Bot(command_prefix=prefix, help_command=commands.MinimalHelpCommand())
+
 
 @bot.command()
 async def ping(ctx):
@@ -35,6 +38,10 @@ async def nube(ctx):
     
 @bot.command()
 async def aki(ctx):
-    await ctx.send('秋柿様')
+    await ctx.send('どしたん話きこか？')
+    
+@bot.commnand()
+async def helpco(ctx):
+    await ctx.send('test')
     
 bot.run(token)
