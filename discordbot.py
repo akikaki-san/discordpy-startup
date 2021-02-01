@@ -36,8 +36,5 @@ async def nube(ctx):
 async def aki(ctx):
     await ctx.send('どしたん話きこか？')
     
-@bot.commnand()
-async def helpco(ctx):
-    await ctx.send('test')
     
 bot.run(token)
