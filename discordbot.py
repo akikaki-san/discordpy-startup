@@ -12,7 +12,6 @@ async def on_command_error(ctx, error):
     error_msg = ''.join(traceback.TracebackException.from_exception(orig_error).format())
     await ctx.send(error_msg)
 
-@bot.event
 bot = commands.Bot(command_prefix=prefix, help_command=commands.MinimalHelpCommand())
 
 
