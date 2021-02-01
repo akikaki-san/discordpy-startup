@@ -1,46 +1,37 @@
 from discord.ext import commands
-import os
-import traceback
 
-bot = commands.Bot(command_prefix='a!')
-token = os.environ['DISCORD_BOT_TOKEN']
+token = 'token'
+prefix = '$'
 
 
-@bot.event
-async def on_command_error(ctx, error):
-    orig_error = getattr(error, "original", error)
-    error_msg = ''.join(traceback.TracebackException.from_exception(orig_error).format())
-    await ctx.send(error_msg)
+class Greet(commands.Cog, name='あいさつ'):
+    def __init__(self, bot):
+        super().__init__()
+        self.bot = bot
 
-bot = commands.Bot(command_prefix=prefix, help_command=commands.MinimalHelpCommand())
+    @commands.command(name="こんにちは")
+    async def hello(self, ctx):
+        """出会いのあいさつをする"""
+        await ctx.send(f"どうも、{ctx.author.name}さん!")
+
+    @commands.command(name="さようなら")
+    async def goodbye(self, ctx):
+        """別れの挨拶をする"""
+        await ctx.send(f"じゃあね、{ctx.author.name}さん!")
 
 
-@bot.command()
-async def ping(ctx):
-    await ctx.send('pong')
+class JapaneseHelpCommand(commands.DefaultHelpCommand):
+    def __init__(self):
+        super().__init__()
+        self.commands_heading = "コマンド:"
+        self.no_category = "その他"
+        self.command_attrs["help"] = "コマンド一覧と簡単な説明を表示"
 
-@bot.command()
-async def botver(ctx):
-    await ctx.send('あきかきbot 1.0')
+    def get_ending_note(self):
+        return (f"各コマンドの説明: {prefix}help <コマンド名>\n"
+                f"各カテゴリの説明: {prefix}help <カテゴリ名>\n")
 
-@bot.command()
-async def suyaxa(ctx):
-    await ctx.send('( ˘ω˘ )')
 
-@bot.command()
-async def botURL(ctx):
-    await ctx.send('https://discord.com/api/oauth2/authorize?client_id=805315041259814913&permissions=0&scope=bot<-をcopy')
-
-@bot.command()
-async def nube(ctx):
-    await ctx.send('( ˘ω˘)ｽﾔｧなのにヌベスコとか常識はずれにもほどがあるでしょｗｗｗｗｗｗｗ')
-    
-@bot.command()
-async def aki(ctx):
-    await ctx.send('どしたん話きこか？')
-    
-@bot.commnand()
-async def helpco(ctx):
-    await ctx.send('test')
-    
+bot = commands.Bot(command_prefix=prefix, help_command=JapaneseHelpCommand())
+bot.add_cog(Greet(bot=bot))
 bot.run(token)
